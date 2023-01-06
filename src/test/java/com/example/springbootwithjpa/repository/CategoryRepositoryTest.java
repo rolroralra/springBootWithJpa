@@ -1,7 +1,5 @@
 package com.example.springbootwithjpa.repository;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.example.springbootwithjpa.domain.Category;
 import com.example.springbootwithjpa.repository.common.JpaRepositoryTest;
 import com.example.springbootwithjpa.repository.data.CategoryDataSet;

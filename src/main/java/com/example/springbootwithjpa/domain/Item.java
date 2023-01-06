@@ -1,5 +1,8 @@
 package com.example.springbootwithjpa.domain;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
+import com.example.springbootwithjpa.exception.NotEnoughStockException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.DiscriminatorColumn;
@@ -37,4 +40,19 @@ public abstract class Item {
 
     @OneToMany(mappedBy = "item")
     private List<CategoryItem> categoryItems = new ArrayList<>();
+
+    public void addStock(long quantity) {
+        checkArgument(quantity > 0, "quantity should be greater than 0");
+
+        stockQuantity += quantity;
+    }
+
+    public void removeStock(long quantity) {
+        checkArgument(quantity > 0, "quantity should be greater than 0");
+        if (quantity > stockQuantity) {
+            throw new NotEnoughStockException(String.format("quantity should be less or than %d", stockQuantity));
+        }
+
+        stockQuantity -= quantity;
+    }
 }

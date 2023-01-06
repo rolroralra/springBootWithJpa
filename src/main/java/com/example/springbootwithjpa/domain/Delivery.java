@@ -1,5 +1,6 @@
 package com.example.springbootwithjpa.domain;
 
+import com.google.common.base.Preconditions;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -33,4 +34,14 @@ public class Delivery {
 
     @Enumerated(value = EnumType.STRING)
     private DeliveryStatus status;
+
+    public static Delivery createDelivery(Address address) {
+        Preconditions.checkArgument(address != null);
+
+        Delivery delivery = new Delivery();
+        delivery.setAddress(address);
+        delivery.setStatus(DeliveryStatus.READY);
+
+        return delivery;
+    }
 }
