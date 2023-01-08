@@ -9,13 +9,27 @@ spring:
     password:
 
   jpa:
+    open-in-view: true
     hibernate:
 #      ddl-auto: create
     properties:
       hibernate:
-
         show_sql: true
         format_sql: true
+        default_batch_fetch_size: 1000
+
+    mapping-resources:
+      - "orm/order.xml"
+
+  sql:
+    init:
+      continue-on-error: false   # Default: false
+      platform: all   # Default: all
+      mode: always  # Default: embedded
+#      schema-locations:
+#        - classpath:sql/schema-h2.sql
+#      data-locations:
+#        - classpath:sql/data-h2.sql
 
   thymeleaf:
     prefix: classpath:/templates/

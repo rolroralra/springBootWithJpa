@@ -31,7 +31,7 @@ class MemberServiceTest {
         Member member = MemberDataSet.testData(givenMemberName);
 
         // When
-        Long savedId = memberService.saveMember(member);
+        Long savedId = memberService.insertMember(member);
 
         // Then
         assertThat(memberRepository.findById(savedId)).isPresent()
@@ -47,12 +47,12 @@ class MemberServiceTest {
         Member member = MemberDataSet.testData(duplicatedName);
         Member duplicatedMember = MemberDataSet.testData(duplicatedName);
 
-        Long savedId = memberService.saveMember(member);
+        Long savedId = memberService.insertMember(member);
         assertThat(memberRepository.findById(savedId)).isPresent();
 
         // Expected
         assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() ->
-            memberService.saveMember(duplicatedMember)
+            memberService.insertMember(duplicatedMember)
         );
     }
 }

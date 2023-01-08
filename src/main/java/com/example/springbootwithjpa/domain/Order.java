@@ -101,4 +101,8 @@ public class Order {
     public String getMemberName() {
         return member.getName();
     }
+
+    public Address getDeliveryAddress() {
+        return delivery.getAddress();
+    }
 }

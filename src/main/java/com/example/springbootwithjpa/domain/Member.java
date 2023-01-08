@@ -1,5 +1,6 @@
 package com.example.springbootwithjpa.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class Member {
     @Embedded
     private Address address;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
@@ -46,5 +48,13 @@ public class Member {
         Preconditions.checkArgument(order != null);
 
         orders.remove(order);
+    }
+
+    public static Member createMember(String name, String city, String street, String zipcode) {
+        Member member = new Member();
+        member.setName(name);
+        member.setAddress(new Address(city, street, zipcode));
+
+        return member;
     }
 }

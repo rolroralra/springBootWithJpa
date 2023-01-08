@@ -1,20 +1,20 @@
 package com.example.springbootwithjpa.repository.impl;
 
+import com.example.springbootwithjpa.api.dto.SimpleOrderDto;
 import com.example.springbootwithjpa.controller.dto.OrderSearchDto;
 import com.example.springbootwithjpa.domain.Order;
+import com.example.springbootwithjpa.repository.custom.CustomOrderRepository;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository("orderRepositoryImpl")
-public class OrderRepositoryImpl extends SimpleJpaRepository<Order, Long> {
+public class OrderRepositoryImpl implements CustomOrderRepository {
 
     private final EntityManager em;
 
     public OrderRepositoryImpl(EntityManager em) {
-        super(Order.class, em);
         this.em = em;
     }
 
@@ -57,5 +57,12 @@ public class OrderRepositoryImpl extends SimpleJpaRepository<Order, Long> {
         }
 
         return query.getResultList();
+    }
+
+    @Override
+    public List<SimpleOrderDto> findAllOrderDtos() {
+        return em.createQuery("select new com.example.springbootwithjpa.api.dto.SimpleOrderDto("
+            + "o.id, m.name, o.orderDate, o.status, d.address)" +
+            " from Order o left join o.member m left join o.delivery d", SimpleOrderDto.class).getResultList();
     }
 }

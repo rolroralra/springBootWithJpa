@@ -43,7 +43,7 @@ public class MemberController {
 
         Member member = memberForm.createMember();
 
-        memberService.saveMember(member);
+        memberService.insertMember(member);
 
         return "redirect:/";
     }

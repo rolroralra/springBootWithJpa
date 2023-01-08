@@ -2,6 +2,7 @@ package com.example.springbootwithjpa.domain;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,6 +34,7 @@ public class OrderItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
+    @JsonIgnore
     private Order order;
 
     private Long orderPrice;
@@ -64,5 +66,9 @@ public class OrderItem {
 
     public long getItemStockQuantity() {
         return item.getStockQuantity();
+    }
+
+    public String getItemName() {
+        return item.getName();
     }
 }

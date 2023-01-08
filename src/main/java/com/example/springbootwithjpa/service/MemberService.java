@@ -1,9 +1,9 @@
 package com.example.springbootwithjpa.service;
 
 import com.example.springbootwithjpa.domain.Member;
+import com.example.springbootwithjpa.exception.NotFoundMemberException;
 import com.example.springbootwithjpa.repository.MemberRepository;
 import com.google.common.base.Preconditions;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public Long saveMember(Member member) {
+    public Long insertMember(Member member) {
         validateDuplicateMember(member);
 
         memberRepository.save(member);
@@ -30,8 +30,8 @@ public class MemberService {
         return memberRepository.findAll(pageable);
     }
 
-    public Optional<Member> findById(Long memberId) {
-        return memberRepository.findById(memberId);
+    public Member findById(Long memberId) {
+        return memberRepository.findById(memberId).orElseThrow(NotFoundMemberException::new);
     }
 
     private void validateDuplicateMember(Member member) {
@@ -41,5 +41,12 @@ public class MemberService {
         if (memberRepository.findByName(member.getName()).isPresent()) {
             throw new IllegalArgumentException("Member.name is duplicated");
         }
+    }
+
+    @Transactional
+    public void updateMember(Long id, String name) {
+        Member member = memberRepository.findById(id).orElseThrow(NotFoundMemberException::new);
+
+        member.setName(name);
     }
 }

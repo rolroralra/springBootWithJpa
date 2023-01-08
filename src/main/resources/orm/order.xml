@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+  xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" version="2.2">
+
+  <named-query name="Order.findAllWithMemberDelivery">
+    <query><![CDATA[
+			select new com.example.springbootwithjpa.api.dto.SimpleOrderDto(o.id, m.name, o.orderDate, o.status, d.address)
+			from Order o
+			  left join o.member m
+			  left join o.delivery d
+    ]]></query>
+  </named-query>
+
+  <!--
+  <sql-result-set-mapping name="memberResultSetMapping">
+    <constructor-result target-class="org.example.domain.Member">
+      <column name="id" class="java.lang.Long" />
+      <column name="name" />
+    </constructor-result>
+  </sql-result-set-mapping>
+  -->
+</entity-mappings>

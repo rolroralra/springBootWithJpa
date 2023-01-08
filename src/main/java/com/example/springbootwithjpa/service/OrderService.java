@@ -14,7 +14,6 @@ import com.example.springbootwithjpa.repository.ItemRepository;
 import com.example.springbootwithjpa.repository.MemberRepository;
 import com.example.springbootwithjpa.repository.OrderItemRepository;
 import com.example.springbootwithjpa.repository.OrderRepository;
-import com.example.springbootwithjpa.repository.impl.OrderRepositoryImpl;
 import com.google.common.base.Preconditions;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +33,7 @@ public class OrderService {
     private final DeliveryRepository deliveryRepository;
     private final OrderItemRepository orderItemRepository;
 
-    private final OrderRepositoryImpl orderRepositoryImpl;
+//    private final OrderRepositoryImpl orderRepositoryImpl;
 
     @Transactional
     public Long takeOrder(Long memberId, Long itemId, long count) {
@@ -72,6 +71,6 @@ public class OrderService {
     public List<Order> findOrders(OrderSearchDto orderSearchDto) {
         Preconditions.checkArgument(orderSearchDto != null);
 
-        return orderRepositoryImpl.findAll(orderSearchDto);
+        return orderRepository.findAll(orderSearchDto);
     }
 }

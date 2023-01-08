@@ -1,5 +1,6 @@
 package com.example.springbootwithjpa.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Preconditions;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -27,6 +28,7 @@ public class Delivery {
     private Long id;
 
     @OneToOne(mappedBy = "delivery")
+    @JsonIgnore
     private Order order;
 
     @Embedded

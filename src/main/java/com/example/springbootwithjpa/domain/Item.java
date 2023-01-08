@@ -3,6 +3,7 @@ package com.example.springbootwithjpa.domain;
 import static com.google.common.base.Preconditions.checkArgument;
 
 import com.example.springbootwithjpa.exception.NotEnoughStockException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.DiscriminatorColumn;
@@ -39,6 +40,7 @@ public abstract class Item {
     private Long stockQuantity;
 
     @OneToMany(mappedBy = "item")
+    @JsonIgnore
     private List<CategoryItem> categoryItems = new ArrayList<>();
 
     public void addStock(long quantity) {
