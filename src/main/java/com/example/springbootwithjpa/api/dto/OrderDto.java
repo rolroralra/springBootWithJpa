@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
+@EqualsAndHashCode(of = "orderId")
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDto {
@@ -20,6 +22,15 @@ public class OrderDto {
     private OrderStatus orderStatus;
     private Address address;
     private List<OrderItemDto> orderItems;
+
+    public OrderDto(Long orderId, String name, LocalDateTime orderDate, OrderStatus orderStatus,
+        Address address) {
+        this.orderId = orderId;
+        this.name = name;
+        this.orderDate = orderDate;
+        this.orderStatus = orderStatus;
+        this.address = address;
+    }
 
     public static OrderDto of(Order order) {
         return new OrderDto(

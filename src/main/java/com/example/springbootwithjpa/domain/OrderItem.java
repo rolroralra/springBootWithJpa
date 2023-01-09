@@ -71,4 +71,8 @@ public class OrderItem {
     public String getItemName() {
         return item.getName();
     }
+
+    public Long getOrderId() {
+        return order.getId();
+    }
 }
